@@ -2,11 +2,11 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    NavigationContainer: {
         padding: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: 'gray',
+        backgroundColor: 'white',
     },
 
     loginContainer: {
@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        backgroundColor: 'white',
     },
 
     loginImage: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: 'flex-start',
         // backgroundColor: 'red',
-        width: '100%'
+        width: '94%'
     },
 
     headerText: {
@@ -63,12 +64,16 @@ const styles = StyleSheet.create({
         padding: 4,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'black'
     },
 
     submitText: {
         fontWeight: 'bold',
         fontSize: 18,
-    }
+        color: 'white',
+    },
+
+    
 
     
   });

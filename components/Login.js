@@ -4,11 +4,15 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Image, ScrollView } from
 import styles from '../styles';
 
 
-export default function Login() {
+export default function Login({navigation}) {
+    const handleSignIn = () =>{
+        navigation.navigate('Home')
+    }
+
   return (
     <View style={styles.loginContainer}>
         <View > 
-            <Image source={require('./Logo.jpeg')}  style={styles.loginImage}/>
+            <Image source={require('./Logo.jpeg')}  style={styles.loginImage} />
         </View>
 
         <View style={styles.header}>
@@ -16,11 +20,12 @@ export default function Login() {
         </View>
 
         <View  style ={styles.loginInputs}>
-            <TextInput placeholder='Enter email '  style={styles.textInput} />
-            <TextInput placeholder='Enter email '  style={styles.textInput} />
+            <TextInput keyboardType='email' placeholder='Enter email '  style={styles.textInput} />
+            <TextInput  placeholder='Enter password '  style={styles.textInput} />
             <TouchableOpacity 
-                style={styles.submitButton
-            }>
+                style={styles.submitButton}
+                onPress={handleSignIn}
+            >
                 
                 <Text style={styles.submitText}>Sign in</Text>
             </TouchableOpacity>
