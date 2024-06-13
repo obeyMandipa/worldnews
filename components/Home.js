@@ -1,25 +1,37 @@
 import React, {useState} from 'react'
 import { StyleSheet, View, Text, SelectInput, TextInput, TouchableOpacity, Image, ScrollView, } from 'react-native';
-import SelectDropdown from 'react-native-select-dropdown'
-// import styles from '../styles';
-import { Button } from '@gluestack-ui/themed';
+import { Button, set } from '@gluestack-ui/themed';
 import Footer from './Footer';
+import { SelectList } from 'react-native-dropdown-select-list';
 
 
 
 export default function Home() {
-    const options = ['Heath', 'Business', 'Sport'];
-    const [selectedOption, setSelectedOption] = useState('');
-
-    const handleValueChange = (option) => {
-        setSelectedOption(option);
-    }
+    const [selected, setSelected] = useState('');
+    const options = [
+        {key: '1', value: 'Sport'},
+        {key: '2', value: 'general'}, 
+        {key: '3', value: 'science'}, 
+        {key: '4', value: 'technology'}, 
+        {key: '5', value: 'Health'}, 
+    ];
 
   return (
     <View style ={styles.homeContainer}>
       
        <View style={styles.searchContainer}>
-       <TextInput style={styles.selectDropdown} placeholder='Selection ' />
+
+       <View style={styles.selectDropdown}> 
+            <SelectList 
+                 setSelected={(val) => setSelected(val)}
+                 data={options}
+                 save='value'
+                 placeholder='Selection' 
+                 maxheight= {900}
+
+             />
+       </View>
+       
         <TouchableOpacity style={styles.searchButton}>
             <Text style={styles.searchText} >Search </Text>
         </TouchableOpacity>
@@ -58,7 +70,7 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         height: 50,
-        marginTop: 10,
+        // marginTop: 10,
         // backgroundColor: 'red', 
         
     },
@@ -70,7 +82,7 @@ const styles = StyleSheet.create({
     },
     searchContainer: {
         marginTop: 10,
-        height: 60,
+        height: 150,
         // backgroundColor: 'red',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -78,14 +90,9 @@ const styles = StyleSheet.create({
     },
 
     selectDropdown: {
-        width: '77%',
+        width: '78%',
         height: 45,
-        // backgroundColor: 'red',
-        borderRadius: 20,
-        padding: 8,
-        borderColor: 'black',
-        borderWidth: 1,
-
+        
     },
 
     searchButton: {
