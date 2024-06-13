@@ -8,6 +8,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 export default function Home() {
     const [selected, setSelected] = useState('');
+    const [data, setData] = useState('')
     const options = [
         {key: '1', value: 'Sport'},
         {key: '2', value: 'general'}, 
@@ -16,8 +17,25 @@ export default function Home() {
         {key: '5', value: 'Health'}, 
     ];
 
+    const handleSearch = () => {
+        const category = selected.toLowerCase();
+        const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    };
+
   return (
     <View style ={styles.homeContainer}>
+        <View style={styles.header}>
+                <Text style={styles.headerText}>World news Headlines... </Text>
+            </View>
       
        <View style={styles.searchContainer}>
 
@@ -28,19 +46,18 @@ export default function Home() {
                  save='value'
                  placeholder='Selection' 
                  maxheight= {900}
+                 dropdownStyles={{backgroundColor: 'white'}}
 
              />
        </View>
        
-        <TouchableOpacity style={styles.searchButton}>
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
             <Text style={styles.searchText} >Search </Text>
         </TouchableOpacity>
        </View>
 
         <ScrollView contentContainerStyle={styles.headlines}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>World news Headlines... </Text>
-            </View>
+            
             <View style={styles.headline}>
 
             </View>
@@ -90,6 +107,7 @@ const styles = StyleSheet.create({
     },
 
     selectDropdown: {
+        position: 'relative',
         width: '78%',
         height: 45,
         
