@@ -8,7 +8,8 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 export default function Home() {
     const [selected, setSelected] = useState('');
-    const [articles, setArticles] = useState([])
+    const [articles, setArticles] = useState([]);
+
 
     const options = [
         {key: '1', value: 'Sport'},
@@ -55,6 +56,8 @@ export default function Home() {
        
         <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
             <Text style={styles.searchText} >Search </Text>
+
+            <Text>{{category}} </Text>
         </TouchableOpacity>
        </View>
 
@@ -63,8 +66,14 @@ export default function Home() {
             <View >
                 {articles.map((article, index) => (
                     <View key={index} style={styles.headline}>
-                    <Text style={styles.author}>{article.author}:</Text>
+                    <Text>Published At:  {article.publishedAt}</Text>
+                    {/* image display */}
+                        <Image source={{ uri: article.urlToImage}} alt='Image not available' style={styles.newsImage} />
                     <Text style={styles.title}>{article.title}</Text>
+                    <Text style={styles.author}>By {article.author}</Text>
+                    <Text style={styles.summary}>Summary:</Text>
+                    <Text style={styles.description}>{article.description}</Text>
+                    {/* link the the full story */}
                     </View>
                 ))}
             </View>
@@ -128,11 +137,13 @@ const styles = StyleSheet.create({
     
     headline: {
         // width: '%',
-        height: 200,
+        minheight: 200,
         borderRadius: 20,
-        borderColor: 'black',
-        borderWidth: 1,
-        marginTop: 10,
+        // borderColor: 'black',
+        backgroundColor: '#dce2f3',
+
+        // borderWidth: 1,
+        marginTop: 20,
         padding: 10,
     },
 
@@ -145,9 +156,35 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         marginBottom: 10,
+
+      },
+      newsImage: {
+        marginTop: 5,
+        // backgroundColor: 'gray',
+        height: 230,
+        borderColor: 'black',
+        // borderWidth: 1,
+        borderRadius: 20
+      },
+      title: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 10,
+
       },
       author: {
-        fontWeight: 'bold',
+        marginTop: 5,
       },
+      summary: {
+        marginTop: 15,
+        fontWeight: 'bold',
+        fontSize: 18,
+
+      },
+     
+      description: {
+        marginTop: 5,
+        fontSize: 16,
+      }
       
 })
