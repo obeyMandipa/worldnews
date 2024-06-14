@@ -12,10 +12,9 @@ export default function Home() {
 
 
     const options = [
-        {key: '1', value: 'Sport'},
-        {key: '2', value: 'general'}, 
-        {key: '3', value: 'science'}, 
-        {key: '4', value: 'technology'}, 
+        {key: '2', value: 'General'}, 
+        {key: '3', value: 'Science'}, 
+        {key: '4', value: 'Technology'}, 
         {key: '5', value: 'Health'}, 
     ];
 
@@ -42,27 +41,28 @@ export default function Home() {
             </View>
       
        <View style={styles.searchContainer}>
+        <View style={styles.selectDropdown}> 
+                <SelectList setSelected={(val) => setSelected(val)}
+                    data={options}
+                    save='value'
+                    placeholder='Selection' 
+                    maxheight= {900}
+                    dropdownStyles={{backgroundColor: 'white'}}
 
-       <View style={styles.selectDropdown}> 
-            <SelectList setSelected={(val) => setSelected(val)}
-                 data={options}
-                 save='value'
-                 placeholder='Selection' 
-                 maxheight= {900}
-                 dropdownStyles={{backgroundColor: 'white'}}
+                />
+        </View>
+        
+            <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+                <Text style={styles.searchText} >Search </Text>
+            </TouchableOpacity>
 
-             />
-       </View>
-       
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-            <Text style={styles.searchText} >Search </Text>
+      
 
-            <Text>{{category}} </Text>
-        </TouchableOpacity>
        </View>
 
         <ScrollView contentContainerStyle={styles.headlines}>
-            
+        
+                <Text style={styles.category} > {selected} </Text>
             <View >
                 {articles.map((article, index) => (
                     <View key={index} style={styles.headline}>
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: '78%',
         height: 45,
-        
     },
 
     searchButton: {
@@ -133,6 +132,14 @@ const styles = StyleSheet.create({
     searchText: {
         color: 'white',
         fontWeight: 'bold'
+    },
+
+    category: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 30,
+        fontWeight: 'bold'
+
     },
     
     headline: {
