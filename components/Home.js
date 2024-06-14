@@ -8,7 +8,8 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 export default function Home() {
     const [selected, setSelected] = useState('');
-    const [data, setData] = useState('')
+    const [articles, setArticles] = useState([])
+
     const options = [
         {key: '1', value: 'Sport'},
         {key: '2', value: 'general'}, 
@@ -22,9 +23,11 @@ export default function Home() {
         const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json`;
 
         fetch(apiUrl)
+            // .then(response => response.text())  // Get the response as text
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                setArticles(data.articles), // update the articles state with the fetched articles 
+                console.log(articles);
             })
             .catch(error => {
                 console.error(error)
@@ -40,8 +43,7 @@ export default function Home() {
        <View style={styles.searchContainer}>
 
        <View style={styles.selectDropdown}> 
-            <SelectList 
-                 setSelected={(val) => setSelected(val)}
+            <SelectList setSelected={(val) => setSelected(val)}
                  data={options}
                  save='value'
                  placeholder='Selection' 
@@ -58,18 +60,15 @@ export default function Home() {
 
         <ScrollView contentContainerStyle={styles.headlines}>
             
-            <View style={styles.headline}>
-
+            <View >
+                {articles.map((article, index) => (
+                    <View key={index} style={styles.headline}>
+                    <Text style={styles.author}>{article.author}:</Text>
+                    <Text style={styles.title}>{article.title}</Text>
+                    </View>
+                ))}
             </View>
-            <View style={styles.headline}>
-
-            </View>
-            <View style={styles.headline}>
-
-            </View>
-            <View style={styles.headline}>
-
-            </View>
+            
         </ScrollView>
 
         <Footer/>
@@ -128,16 +127,27 @@ const styles = StyleSheet.create({
     },
     
     headline: {
-        width: '96%',
+        // width: '%',
         height: 200,
         borderRadius: 20,
         borderColor: 'black',
         borderWidth: 1,
         marginTop: 10,
+        padding: 10,
     },
 
     headlines: {
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+
+    articleContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: 10,
+      },
+      author: {
+        fontWeight: 'bold',
+      },
+      
 })
